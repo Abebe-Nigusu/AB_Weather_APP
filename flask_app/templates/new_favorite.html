@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Display Weather</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <nav id="header">
+            <h1 class="weatherText">My Favorite Cities</h1>
+            <a href="/" id="header"><h3>Home</h3></a>
+            <a href="/" id="header">Logout</a>
+        </nav>
+            {% for result in results %}
+                {% set temp = result.main["temp"] %}
+                {% set metric = (temp - 273.15 ) %}
+                {% set imperial = (temp - 273.15) * 1.8 + 32 %}
+                {% set temp1 = result.main["feels_like"] %}
+                {% set metric1 = (temp1 - 273.15 ) %}
+                {% set imperial1 = (temp1 - 273.15) * 1.8 + 32 %}
+
+                <div id="weatherResults">
+                    <H3>City: {{ result.name }}</H3>
+                    <H3>Current Temprature: {{metric|round}} °C / {{ imperial|round }} °F</H3>
+                    <H3>Weather Condition: {{ result.weather[0]["main"]}}</H3>
+                    <H3>Feels Like: {{metric1|round}} °C / {{ imperial1|round }} °F</H3>
+                    <H3>Description: {{ result.weather[0]["description"] }}</H3>
+                </div>
+            {% endfor %}
+    </body>
+
+</html>

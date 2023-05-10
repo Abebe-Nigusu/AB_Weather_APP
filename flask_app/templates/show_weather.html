@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Display Weather</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <nav id="header">
+            <h1 class="weatherText">Weather in {{ location }} Today</h1>
+            <div class="d-flex col-8 justify-content-around">
+                <a href="/" id="header"><h3>Home</h3></a>
+                <a href="/myfavorites" id="header"><h3>My Favorites</h3></a>
+            </div>
+        </nav>
+        <div id="weatherResults">
+            <h3>Weather in {{ location }}</h3> 
+            <h2>{{ temp }}
+                {% if units == "imperial" %}
+                °F
+                {% else %}
+                °C
+                {% endif %}
+            <span></h2>
+            <h3><img src="http://openweathermap.org/img/w/{{ icon }}.png" alt="Image"></h3>
+            <H3>{{ weather }}</H3>
+            <h4>Feels like: {{ feels_like }}
+                {% if units == "imperial" %}
+                    °F
+                {% else %}
+                    °C
+                {% endif %}
+            </h4>
+            <h4>{{ description}}</h4> 
+
+            <form action="/favorite/create" method="post">
+                <input type="hidden" name="location" value="{{ location }}">
+                <button id="weatherSubmit" class="button is-info" type="submit">Add to Favorites</button>
+            </form>
+        </div>
+    </body>
+
+</html>
